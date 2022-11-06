@@ -14,7 +14,8 @@ import {
     AccountUpdate,
     Bool,
     Experimental,
-    Circuit
+    Circuit,
+    DeployArgs
   } from 'snarkyjs';
 
 type Witness = { isLeft: boolean; sibling: Field }[];
@@ -26,9 +27,13 @@ const MerkleTreeHeight = 4;
  */
  const MerkleTree = Experimental.MerkleTree;
  const merkleTree = new MerkleTree(MerkleTreeHeight);
+ 
  class MerkleWitness extends Experimental.MerkleWitness(MerkleTreeHeight) {}
 
 class zkAppCredentials extends SmartContract {
+    @state(Field) GX = State<Field>();
+    @state(Field) GY = State<Field>();
+  
     @state(Field) merkleTreeRoot = State<Field>();
     @method update(y: Field) {
         console.log('Just for compiling');
@@ -42,6 +47,19 @@ class zkAppCredentials extends SmartContract {
     //For our implementation this needs to happen off-chain
     let merkleTreeRoot = merkleTree.getRoot();
     witnessMerkleRoot.assertEquals(merkleTreeRoot);
+  }
+  deploy(args: DeployArgs) {
+    super.deploy(args);
+    this.GX.set(
+      Field(
+        '0x79BE667EF9DCBBAC55A06295CE870B07029BFCDB2DCE28D959F2815B16F81798'
+      )
+    );
+    this.GY.set(
+      Field(
+        '0x483ADA7726A3C4655DA4FBFC0E1108A8FD17B448A68554199C47D08FFB10D4B8'
+      )
+    );
   }
   //TODO: ADD  gerIndex() function
 } 
@@ -62,7 +80,7 @@ function pullFromRegistery ();
 
 }
 function generateStealthAddress(privateKey:PrivateKey, publicKey:PublicKey){
-    
+
 }
 function claimCreditial ( commitment: Field, publicKey:PublicKey ){
 //Verify claim 
