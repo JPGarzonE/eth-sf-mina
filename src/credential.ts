@@ -44,7 +44,7 @@ class zkAppCredentials extends SmartContract {
       }
       @method generateStealthAddress(secret: Field, publicKey:PublicKey) {
         console.log(secret);
-    
+        //todo turn a PK into Field
         //  s*G = S
         const ellipticCurveStartingPoint = new Group({
           x: this.GX.get(),
@@ -67,9 +67,7 @@ class zkAppCredentials extends SmartContract {
         fieldArray.push(fieldSecret)
         let SharedSecretHashed= Poseidon.hash(fieldArray)
         console.log(SharedSecretHashed) 
-        let publickKey= SharedSecretHashed.toString().slice(-20).padStart(42,'0x')
-        console.log('Keccak: ', keccak);
-        console.log('keccak 2: ', keccak.toString());
+        let stealthPublicKey= SharedSecretHashed.toString().slice(-20).padStart(42,'0x')
     
         // hash(sharedSecret)
     
@@ -79,7 +77,7 @@ class zkAppCredentials extends SmartContract {
         // EllipticCurve.ecAdd(PublicKeyX, PublicKeyY, Qx, Qy, AA, PP);
         // generate stealth address
     
-        return oneTimePublicData;
+        return stealthPublicKey;
       }
       /**
    * Verification Method for Merkle Tree
