@@ -1,0 +1,23 @@
+{
+  "compilerOptions": {
+    "target": "ESNext",
+    "module": "esnext",
+    "outDir": "./dist",
+    "rootDir": "./src",
+    "jsx": "preserve",
+    "useDefineForClassFields": false,
+    "declaration": true,
+    "strict": true,
+    "allowJs": true,
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "moduleResolution": "node",
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "baseUrl": ".",
+    "paths": {
+      "@*": ["./src/*"]
+    }
+  },
+  "include": ["./src/**/*.ts"]
+}
