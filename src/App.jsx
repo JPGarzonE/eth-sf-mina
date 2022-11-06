@@ -41,7 +41,7 @@ function DeployContract({ setZkapp }) {
   async function deploy() {
     if (isLoading) return;
     setLoading(true);
-    Sudoku = await import('../dist/sudoku.js');
+    Sudoku = await import('../src/sudoku.js');
     let zkapp = await Sudoku.deploy();
     setLoading(false);
     setZkapp(zkapp);
